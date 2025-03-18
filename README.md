@@ -17,7 +17,7 @@ You can see a live demo by opening the `example.html` file in your browser after
 
 1. Clone this repository:
 ```
-git clone https://github.com/yourusername/multiply-widget.git
+git clone https://github.com/GospelAmbition/multiply-widget.git
 cd multiply-widget
 ```
 

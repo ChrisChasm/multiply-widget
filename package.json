@@ -1,18 +1,22 @@
 {
   "name": "multiply-widget",
   "version": "1.0.0",
-  "description": "An embeddable widget showing the power of multiplication for churches/disciples",
+  "description": "An embeddable widget showing the power of multiplication for churches/Christian groups",
   "main": "src/widget.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GospelAmbition/multiply-widget.git"
   },
   "keywords": [
     "multiplication",
     "church",
     "widget"
   ],
-  "author": "",
+  "author": "GospelAmbition",
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^6.8.1",
