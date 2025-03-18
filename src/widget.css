@@ -29,6 +29,19 @@
     border-radius: 4px;
     background-color: white;
     margin: 0 5px;
+    min-width: fit-content;
+    width: auto;
+    text-align: left;
+}
+
+/* Ensure dropdown for months is wide enough */
+.multiply-widget #months-to-multiply {
+    min-width: 60px;
+}
+
+/* Ensure dropdown for initial groups is wide enough */
+.multiply-widget #initial-groups {
+    min-width: 50px;
 }
 
 .multiply-widget .chart-container {
