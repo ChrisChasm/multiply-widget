@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Multiplication Widget Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .description {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .widget-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 30px 0;
+        }
+        
+        .code-example {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 30px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Church Multiplication Widget Example</h1>
+        <p>A demonstration of the power of multiplication in church growth</p>
+    </header>
+    
+    <div class="description">
+        <h2>About This Widget</h2>
+        <p>This widget demonstrates the exponential power of multiplication for churches and Christian groups. 
+        It allows users to experiment with different growth factors to see how small changes in 
+        multiplication rates or initial numbers can lead to dramatic differences over time.</p>
+        
+        <p>This visual tool helps leaders understand and communicate the importance of frequent 
+        reproduction of churches.</p>
+    </div>
+    
+    <div class="widget-container">
+        <div id="multiplication-widget"></div>
+    </div>
+    
+    <h2>How to Embed This Widget</h2>
+    <p>To embed this widget on your website, include the script and a container div as shown below:</p>
+    
+    <div class="code-example">
+        <pre><code>&lt;div id="multiplication-widget"&gt;&lt;/div&gt;
+&lt;script src="multiply-widget.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    new MultiplyWidget({
+        container: 'multiplication-widget'
+    });
+&lt;/script&gt;</code></pre>
+    </div>
+    
+    <script src="dist/multiply-widget.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new MultiplyWidget({
+                container: 'multiplication-widget'
+            });
+        });
+    </script>
+</body>
+</html> 
