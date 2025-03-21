@@ -1,6 +1,40 @@
 import Chart from 'chart.js/auto';
 import './widget.css';
 
+// Translations for multilingual support
+const translations = {
+  en: {
+    title: 'The Power of Multiplication',
+    startText: 'If I start',
+    groupsText: 'Christian groups that each reproduce every',
+    monthText: 'month',
+    monthsText: 'months',
+    howManyText: 'how many total groups will there be at the end of 10 years?',
+    yearText: 'Year',
+    yearsText: 'Years',
+    numberOfGroupsText: 'Number of Groups',
+    afterYearsText: 'After 10 years:',
+    groupsResultText: 'groups',
+    millionText: 'million',
+    thousandText: 'thousand'
+  },
+  es: {
+    title: 'El Poder de la Multiplicación',
+    startText: 'Si comienzo con',
+    groupsText: 'grupos cristianos que se reproducen cada',
+    monthText: 'mes',
+    monthsText: 'meses',
+    howManyText: '¿cuántos grupos habrá en total al final de 10 años?',
+    yearText: 'Año',
+    yearsText: 'Años',
+    numberOfGroupsText: 'Número de Grupos',
+    afterYearsText: 'Después de 10 años:',
+    groupsResultText: 'grupos',
+    millionText: 'millones',
+    thousandText: 'mil'
+  }
+};
+
 export default class MultiplyWidget {
   constructor(options = {}) {
     this.container = document.getElementById(options.container || 'multiplication-widget');
@@ -13,9 +47,21 @@ export default class MultiplyWidget {
     this.monthsToMultiply = 3;
     this.years = 10;
     
+    // Add language support - default to English if not specified
+    this.language = options.language || 'en';
+    if (!translations[this.language]) {
+      console.warn(`Language '${this.language}' not supported, falling back to English`);
+      this.language = 'en';
+    }
+    
     this.render();
     this.setupEventListeners();
     this.calculateAndUpdateChart();
+  }
+  
+  // Helper method to get translated text
+  t(key) {
+    return translations[this.language][key] || translations['en'][key] || key;
   }
   
   render() {
@@ -23,7 +69,7 @@ export default class MultiplyWidget {
     
     // Title
     const title = document.createElement('h1');
-    title.textContent = 'The Power of Multiplication';
+    title.textContent = this.t('title');
     this.container.appendChild(title);
     
     // Interactive message with dropdowns
@@ -32,19 +78,19 @@ export default class MultiplyWidget {
     
     // Create the interactive message with dropdowns
     messageContainer.innerHTML = `
-      If I start 
+      ${this.t('startText')} 
       <select id="initial-groups">
         ${Array.from({length: 20}, (_, i) => i + 1).map(num => 
           `<option value="${num}" ${num === this.initialGroups ? 'selected' : ''}>${num}</option>`
         ).join('')}
       </select>
-      Christian groups that each reproduce every
+      ${this.t('groupsText')}
       <select id="months-to-multiply">
         ${Array.from({length: 24}, (_, i) => i + 1).map(month => 
           `<option value="${month}" ${month === this.monthsToMultiply ? 'selected' : ''}>${month}</option>`
         ).join('')}
       </select>
-      month${this.monthsToMultiply > 1 ? 's' : ''}, how many total groups will there be at the end of 10 years?
+      ${this.monthsToMultiply > 1 ? this.t('monthsText') : this.t('monthText')}, ${this.t('howManyText')}
     `;
     
     this.container.appendChild(messageContainer);
@@ -70,9 +116,9 @@ export default class MultiplyWidget {
     this.chart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: Array.from({length: this.years}, (_, i) => `Year ${i + 1}`),
+        labels: Array.from({length: this.years}, (_, i) => `${this.t('yearText')} ${i + 1}`),
         datasets: [{
-          label: 'Number of Groups',
+          label: this.t('numberOfGroupsText'),
           data: [],
           backgroundColor: 'rgba(54, 162, 235, 0.6)',
           borderColor: 'rgba(54, 162, 235, 1)',
@@ -87,7 +133,7 @@ export default class MultiplyWidget {
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Number of Groups'
+              text: this.t('numberOfGroupsText')
             },
             ticks: {
               callback: function(value) {
@@ -103,23 +149,23 @@ export default class MultiplyWidget {
           x: {
             title: {
               display: true,
-              text: 'Years'
+              text: this.t('yearsText')
             }
           }
         },
         plugins: {
           tooltip: {
             callbacks: {
-              label: function(context) {
+              label: (context) => {
                 let label = context.dataset.label || '';
                 if (label) {
                   label += ': ';
                 }
                 const value = context.parsed.y;
                 if (value >= 1000000) {
-                  label += (value / 1000000).toFixed(2) + ' million';
+                  label += (value / 1000000).toFixed(2) + ' ' + this.t('millionText');
                 } else if (value >= 1000) {
-                  label += (value / 1000).toFixed(2) + ' thousand';
+                  label += (value / 1000).toFixed(2) + ' ' + this.t('thousandText');
                 } else {
                   label += value;
                 }
@@ -201,16 +247,16 @@ export default class MultiplyWidget {
       if (finalResult >= 1000000) {
         const millionValue = (finalResult / 1000000).toFixed(2);
         const [intPart, decPart] = millionValue.split('.');
-        formattedResult = `${parseInt(intPart).toLocaleString()}.${decPart} million`;
+        formattedResult = `${parseInt(intPart).toLocaleString()}.${decPart} ${this.t('millionText')}`;
       } else if (finalResult >= 1000) {
         const thousandValue = (finalResult / 1000).toFixed(2);
         const [intPart, decPart] = thousandValue.split('.');
-        formattedResult = `${parseInt(intPart).toLocaleString()}.${decPart} thousand`;
+        formattedResult = `${parseInt(intPart).toLocaleString()}.${decPart} ${this.t('thousandText')}`;
       } else {
         formattedResult = finalResult.toLocaleString();
       }
       
-      resultDisplay.textContent = `After 10 years: ${formattedResult} groups`;
+      resultDisplay.textContent = `${this.t('afterYearsText')} ${formattedResult} ${this.t('groupsResultText')}`;
     }
   }
 } 

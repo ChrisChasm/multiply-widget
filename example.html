@@ -43,6 +43,26 @@
             margin: 30px 0;
             font-family: monospace;
         }
+        
+        .language-selector {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .language-selector button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .language-selector button.active {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +79,14 @@
         
         <p>This visual tool helps leaders understand and communicate the importance of frequent 
         reproduction of churches.</p>
+        
+        <p><strong>New Feature: Multilingual Support</strong> - Now you can display the widget in different languages!</p>
+    </div>
+    
+    <div class="language-selector">
+        <h3>Select Language / Seleccione Idioma:</h3>
+        <button id="lang-en" class="active">English</button>
+        <button id="lang-es">Español</button>
     </div>
     
     <div class="widget-container">
@@ -73,7 +101,8 @@
 &lt;script src="multiply-widget.js"&gt;&lt;/script&gt;
 &lt;script&gt;
     new MultiplyWidget({
-        container: 'multiplication-widget'
+        container: 'multiplication-widget',
+        language: 'en' // Use 'en' for English or 'es' for Spanish
     });
 &lt;/script&gt;</code></pre>
     </div>
@@ -81,8 +110,38 @@
     <script src="dist/multiply-widget.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            new MultiplyWidget({
-                container: 'multiplication-widget'
+            let widgetInstance;
+            const container = 'multiplication-widget';
+            
+            // Initialize with English by default
+            widgetInstance = new MultiplyWidget({
+                container: container,
+                language: 'en'
+            });
+            
+            // Set up language switching
+            document.getElementById('lang-en').addEventListener('click', function() {
+                document.getElementById('lang-en').classList.add('active');
+                document.getElementById('lang-es').classList.remove('active');
+                
+                // Clear container and reinitialize
+                document.getElementById(container).innerHTML = '';
+                widgetInstance = new MultiplyWidget({
+                    container: container,
+                    language: 'en'
+                });
+            });
+            
+            document.getElementById('lang-es').addEventListener('click', function() {
+                document.getElementById('lang-es').classList.add('active');
+                document.getElementById('lang-en').classList.remove('active');
+                
+                // Clear container and reinitialize
+                document.getElementById(container).innerHTML = '';
+                widgetInstance = new MultiplyWidget({
+                    container: container,
+                    language: 'es'
+                });
             });
         });
     </script>

@@ -7,6 +7,7 @@ An embeddable widget that visualizes the power of exponential multiplication for
 - **Interactive Dropdowns**: Choose the initial number of Christian groups (1-20) and the time period for reproduction (1-24 months)
 - **Visual Bar Chart**: See the exponential growth visualized across 10 years
 - **Responsive Design**: Works on mobile and desktop devices
+- **Multilingual Support**: Display the widget in different languages (English and Spanish supported)
 - **Easy to Embed**: Simple to add to any website
 
 ## Demo
@@ -61,17 +62,26 @@ To embed the widget on your website:
 ```html
 <script>
   new MultiplyWidget({
-    container: 'multiplication-widget'
+    container: 'multiplication-widget',
+    language: 'en' // Optional: 'en' for English (default) or 'es' for Spanish
   });
 </script>
 ```
 
 ## Customization
 
-Currently, the widget uses default settings, but future versions may include options for:
+The widget supports the following customization options:
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| container | string | 'multiplication-widget' | ID of the container element |
+| language | string | 'en' | Widget language ('en' for English, 'es' for Spanish) |
+
+Future versions may include options for:
 - Custom colors
 - Different chart types
 - Timeframe adjustments
+- Additional languages
 
 ## License
 
